@@ -49,12 +49,12 @@ class ProfileScreen extends StatelessWidget {
               return Column(
                 children: [
                   const SizedBox(height: 40),
-                                    const SizedBox(height: 20),
-                  itemProfile('Nombre', userData['nombre'], CupertinoIcons.person), // Usa los datos del usuario aquí
-                  const SizedBox(height: 10),
-                  itemProfile('Correo', userData['correo'], CupertinoIcons.mail), // Usa los datos del usuario aquí
-                  //const SizedBox(height: 20),
-                  //itemProfile('Contraseña', userData['contraseña'], CupertinoIcons.lock), // Usa los datos del usuario aquí
+                  const SizedBox(height: 20),
+                  if (userData != null) ...[
+                    itemProfile('Name', userData['name'] ?? '', CupertinoIcons.person), // Usa los datos del usuario aquí
+                    const SizedBox(height: 10),
+                    itemProfile('Correo', userData['email'] ?? '', CupertinoIcons.mail), // Usa los datos del usuario aquí
+                  ],
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
