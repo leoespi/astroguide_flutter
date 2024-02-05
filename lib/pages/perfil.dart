@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/services/user_service.dart';
+import 'menu.dart'; // Importa la primera página para la navegación
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -11,7 +12,7 @@ void main() {
 }
 
 class perfil extends StatelessWidget {
-  const perfil({super.key});
+  const perfil({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class perfil extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        
       ),
       home: const ProfileScreen(),
     );
@@ -34,6 +35,9 @@ class ProfileScreen extends StatelessWidget {
     final Future<List<dynamic>> _userDataFuture = UserService.obtenerUsuarios(); // Corregir aquí
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Perfil'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: FutureBuilder<List<dynamic>>(
@@ -59,12 +63,12 @@ class ProfileScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Acción para editar perfil
+                        Navigator.pop(context); // Navega de regreso a la primera página
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(15),
                       ),
-                      child: const Text('Edit Profile'),
+                      child: const Text('Volver al menu'),
                     ),
                   )
                 ],
@@ -84,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
           boxShadow: [
             BoxShadow(
                 offset: const Offset(0, 5),
-                color: Colors.deepOrange.withOpacity(.2),
+                color: Color.fromARGB(255, 104, 51, 155).withOpacity(.2),
                 spreadRadius: 2,
                 blurRadius: 10
             )
