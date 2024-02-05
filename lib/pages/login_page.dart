@@ -4,7 +4,7 @@ import 'package:astroguide_flutter/components/my_textfield.dart';
 import 'package:astroguide_flutter/components/square_tile.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  LoginPage({Key? key});
 
   // text editing controllers
   final usernameController = TextEditingController();
@@ -23,15 +23,12 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
-
               // logo
               const Icon(
                 Icons.lock,
                 size: 100,
               ),
-
               const SizedBox(height: 50),
-
               Text(
                 'Bienvenido a este basto universo ',
                 style: TextStyle(
@@ -39,39 +36,22 @@ class LoginPage extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-
               const SizedBox(height: 25),
-
               MyTextField(
                 controller: usernameController,
                 hintText: 'Usuario',
                 obscureText: false,
               ),
-
               const SizedBox(height: 10),
-
               // password textfield
               MyTextField(
                 controller: passwordController,
                 hintText: 'Contraseña',
                 obscureText: true,
               ),
-
               const SizedBox(height: 10),
-
-
               // forgot password?
               Padding(
-
-              
-
-
-
-
-        //forgot password?
-
-         Padding(
-
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -83,16 +63,12 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 25),
-
               // sign in button
               MyButton(
                 onTap: signUserIn,
               ),
-
               const SizedBox(height: 50),
-
               // or continue with
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -120,25 +96,19 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 50),
-
               // google + apple sign in buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   // google button
                   SquareTile(imagePath: 'lib/images/google.png'),
-
                   SizedBox(width: 25),
-
                   // apple button
                   SquareTile(imagePath: 'lib/images/facebook.png')
                 ],
               ),
-
               const SizedBox(height: 50),
-
               // not a member? register now
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
