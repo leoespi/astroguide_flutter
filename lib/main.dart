@@ -2,6 +2,7 @@ import 'package:astroguide_flutter/pages/menu.dart';
 import 'package:astroguide_flutter/pages/perfil.dart';
 import 'package:astroguide_flutter/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:astroguide_flutter/pages/lecciones.dart';
 
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: menu(),
+      home: Lecciones(),
       
     );
   }
