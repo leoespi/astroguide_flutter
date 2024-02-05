@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class UserService {
   static Future<List<dynamic>> obtenerUsuarios() async {
-    final url = 'http://192.168.1.6:8000/api/user'; // Reemplaza con tu propia URL de la API Laravel
+    final url = 'http://10.0.2.2:8000/api/user'; // Reemplaza con tu propia URL de la API Laravel
     try {
       
       final response = await http.get(Uri.parse(url));
