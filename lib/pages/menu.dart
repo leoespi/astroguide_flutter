@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisSpacing: 30,
                 children: [
                   itemDashboard('Logros', CupertinoIcons.play_rectangle, Colors.deepOrange),
-                  itemDashboardWithButton('Perfil', CupertinoIcons.graph_circle, Colors.green), // Modificación aquí
+                  itemDashboardWithButton('Perfil', CupertinoIcons.profile_circled, Colors.green), // Modificación aquí
                   itemDashboard('Lecciones', CupertinoIcons.person_2, Colors.purple),
                 ],
               ),
