@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
                   )
                 ],
               );
-            }
+            } //Logros Arreglo
           },
         ),
       ),
