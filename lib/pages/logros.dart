@@ -1,72 +1,94 @@
+import 'package:astroguide_flutter/main.dart';
+import 'package:astroguide_flutter/services/lecciones_service.dart';
+import 'package:astroguide_flutter/services/logros_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:astroguide_flutter/services/user_service.dart';
+import 'menu.dart'; // Importa la primera página para la navegación
 
 void main() {
-  runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark));
+  runApp(const MyApp());
 }
 
-class Logros {
-  final String titulo;
-  final String descripcion;
-  final DateTime fecha;
 
-  Logros(this.titulo, this.descripcion, this.fecha);
-}
+
 class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Logros de mi aplicación',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ventanaLogros(),
-    );
-  }
-}
-
-class ventanaLogros extends StatefulWidget {
-  @override
-   createState() => _ventanaLogrosState();
-}
-
-class _ventanaLogrosState extends State<ventanaLogros> {
-  
-  List<Logros> achievements = [
-    Logros(
-      "Logro 1",
-      "Descripción del logro 1",
-      DateTime.now(),
-    ),
-    Logros(
-      "Logro 2",
-      "Descripción del logro 2",
-      DateTime.now(),
-    ),
-    Logros(
-      "Lunatico",
-      "completa la leccion completa de lunas",
-      DateTime.now(),
-    ),
-  ];
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Future<List<dynamic>> _logrosDataFuture = LogrosService.getLogros(); // Corregir aquí
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mis Logros'),
-        centerTitle: true,
+        title: Text('Logros'),
       ),
-      body: ListView.builder(
-        itemCount: achievements.length,
-        itemBuilder: (context, index) {
-          final achievement = achievements[index];
-          return ListTile(
-            title: Text(achievement.titulo),
-            subtitle: Text(
-              'Descripción: ${achievement.descripcion}\nFecha: ${achievement.fecha.day}/${achievement.fecha.month}/${achievement.fecha.year}',
-            ),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: FutureBuilder<List<dynamic>>(
+          future: _logrosDataFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              final logrosData = snapshot.data![0]; // Suponiendo que la lista de usuarios solo contiene un usuario por ahora
+
+              return Column(
+                children: [
+                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
+                  if (logrosData != null) ...[
+                    itemProfile('Nombre_del_Logro', logrosData['Nombre_del_Logro'] ??'', CupertinoIcons.person), // Usa los datos del usuario aquí
+                    const SizedBox(height: 10),
+                    itemProfile('Rareza',logrosData['Rareza'] ?? '', CupertinoIcons.mail), // Usa los datos del usuario aquí
+                  ],
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context); // Navega de regreso a la primera página
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(15),
+                      ),
+                      child: const Text('Volver al menu'),
+                    ),
+                  )
+                ],
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget itemProfile(String title, String subtitle, IconData iconData) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                offset: const Offset(0, 5),
+                color: Color.fromARGB(255, 104, 51, 155).withOpacity(.2),
+                spreadRadius: 2,
+                blurRadius: 10
+            )
+          ]
+      ),
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text(subtitle),
+        leading: Icon(iconData),
+        trailing: Icon(Icons.arrow_forward, color: Colors.grey.shade400),
+        tileColor: Colors.white,
       ),
     );
   }
