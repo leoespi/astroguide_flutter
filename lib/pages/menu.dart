@@ -1,7 +1,9 @@
+import 'package:astroguide_flutter/pages/logros.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'Perfil.dart'; // Importa la segunda página
+import 'package:astroguide_flutter/pages/lecciones.dart'; // Importa la página de lecciones
+import 'package:astroguide_flutter/pages/Perfil.dart'; // Importa la página de perfil
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -85,9 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 40,
                 mainAxisSpacing: 30,
                 children: [
-                  itemDashboard('Logros', CupertinoIcons.play_rectangle, Colors.deepOrange),
+                  itemDashboardWithButton('Logros', CupertinoIcons.play_rectangle, Colors.deepOrange),
                   itemDashboardWithButton('Perfil', CupertinoIcons.profile_circled, Colors.green), // Modificación aquí
-                  itemDashboard('Lecciones', CupertinoIcons.person_2, Colors.purple),
+                  itemDashboardWithButton('Lecciones', CupertinoIcons.person_2, Colors.purple), // Modificación aquí
                 ],
               ),
             ),
@@ -98,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // Widget para los elementos del dashboard sin botones
   Widget itemDashboard(String title, IconData iconData, Color background) => Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -128,12 +131,26 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   );
 
+  // Widget para los elementos del dashboard con botones
   Widget itemDashboardWithButton(String title, IconData iconData, Color background) => GestureDetector(
     onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => perfil()), // Navega a la página de perfil
-      );
+      if (title == 'Perfil') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => perfil()), // Navega a la página de perfil
+        );
+      } else if (title == 'Lecciones') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Lecciones()), // Navega a la página de lecciones
+        );
+      }
+      else if (title == 'Logros') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyApp()), // Navega a la página de lecciones
+        );
+      }
     },
     child: Container(
       decoration: BoxDecoration(
@@ -164,12 +181,32 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(height: 8),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => perfil()), // Navega a la página de perfil
-              );
+              if (title == 'Perfil') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => perfil()), // Navega a la página de perfil
+                );
+              } else if (title == 'Lecciones') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Lecciones()), // Navega a la página de lecciones
+                );
+              }
+              else if (title == 'Logros') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp()), // Navega a la página de lecciones
+                );
+              }
+              
             },
-            child: Text('Ver perfil'),
+            child: Column(
+    children: [
+      Text(title == 'Perfil' ? 'Ver perfil' : 'Ir a Logros' ), // Modificación aquí
+      if (title == 'Lecciones' ) Text('Ir a Lecciones') // Agregar este texto condicionalmente
+    ],
+  ),
+
           ),
         ],
       ),
