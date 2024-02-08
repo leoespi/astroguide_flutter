@@ -45,6 +45,7 @@ class Lecciones extends StatelessWidget {
                     itemProfile('Nombre_de_la_leccion	', leccionesData['Nombre_de_la_leccion'] ??'', CupertinoIcons.person), // Usa los datos del usuario aquí
                     const SizedBox(height: 10),
                     itemProfile('Tipo_de_leccion', leccionesData['Tipo_de_leccion'] ?? '', CupertinoIcons.mail), // Usa los datos del usuario aquí
+                     itemProfile('contenido', leccionesData['contenido'] ?? '', CupertinoIcons.mail) // Usa los datos del usuario aquí
                   ],
                   SizedBox(
                     width: double.infinity,
