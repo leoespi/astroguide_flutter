@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
       else if (title == 'Logros') {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MyApp()), // Navega a la página de lecciones
+          MaterialPageRoute(builder: (context) => logrospage()), // Navega a la página de lecciones
         );
       }
     },
@@ -195,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
               else if (title == 'Logros') {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyApp()), // Navega a la página de lecciones
+                  MaterialPageRoute(builder: (context) => logrospage()), // Navega a la página de lecciones
                 );
               }
               

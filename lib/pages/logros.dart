@@ -4,14 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/services/logros_service.dart';
 import 'package:astroguide_flutter/main.dart';
 
-/*
-void main() {
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-  ));
-  runApp(const MyApp());
-}*/
 
 class logrospage extends StatelessWidget {
   const logrospage({Key? key}) : super(key: key);
