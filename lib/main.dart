@@ -1,6 +1,6 @@
 import 'package:astroguide_flutter/pages/menu.dart';
-import 'package:astroguide_flutter/pages/perfil.dart';
-import 'package:astroguide_flutter/pages/login_page.dart';
+import 'package:astroguide_flutter/pages/profile.dart';
+import 'package:astroguide_flutter/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:astroguide_flutter/pages/lecciones.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Lecciones(),
+      home: LoginScreen(),
       
     );
   }
