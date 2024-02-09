@@ -12,7 +12,7 @@ class LeccionesService {
         return json.decode(response.body);
       } else {
         // La solicitud falló, maneja el error de otra manera
-        throw Exception('Error al obtener usuarios: ${response.statusCode}');
+        throw Exception('Error al obtener lecciones: ${response.statusCode}');
       }
     } catch (e) {
       // Error de conexión u otro error
