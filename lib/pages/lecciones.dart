@@ -71,7 +71,8 @@ class _LeccionesListState extends State<LeccionesList> {
                       boxShadow: [
                         BoxShadow(
                           offset: const Offset(0, 5),
-                          color: Color.fromARGB(255, 104, 51, 155).withOpacity(.2),
+                          color:
+                              Color.fromARGB(255, 104, 51, 155).withOpacity(.2),
                           spreadRadius: 2,
                           blurRadius: 10,
                         )
@@ -113,7 +114,8 @@ class LeccionDetalle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              Text('Nombre de la lección: ${leccionData['Nombre_de_la_leccion'] ?? ''}'),
+              Text(
+                  'Nombre de la lección: ${leccionData['Nombre_de_la_leccion'] ?? ''}'),
               SizedBox(height: 10),
               Text('Tipo de lección: ${leccionData['Tipo_de_leccion'] ?? ''}'),
               SizedBox(height: 10),
