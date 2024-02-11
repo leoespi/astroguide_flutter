@@ -88,14 +88,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 40,
                 mainAxisSpacing: 30,
                 children: [
-                  itemDashboardWithButton('Logros',
-                      CupertinoIcons.play_rectangle, Colors.deepOrange),
                   itemDashboardWithButton(
-                      'Perfil',
-                      CupertinoIcons.profile_circled,
-                      Colors.green), // Modificación aquí
-                  itemDashboardWithButton('Lecciones', CupertinoIcons.person_2,
-                      Colors.purple), // Modificación aquí
+                      'Logros',
+                      CupertinoIcons.play_rectangle,
+                      Colors.deepOrange),
+                  itemDashboardWithButton('Perfil',
+                      CupertinoIcons.profile_circled, Colors.green),
+                  itemDashboardWithButton('Lecciones',
+                      CupertinoIcons.person_2, Colors.purple),
+                  itemDashboardWithButton('Foro', Icons.forum, Colors.blue),
                 ],
               ),
             ),
@@ -106,39 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // Widget para los elementos del dashboard sin botones
-  Widget itemDashboard(String title, IconData iconData, Color background) =>
-      Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 5),
-                  color: Theme.of(context).primaryColor.withOpacity(.2),
-                  spreadRadius: 2,
-                  blurRadius: 5)
-            ]),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: background,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(iconData, color: Colors.white)),
-            const SizedBox(height: 8),
-            Text(title.toUpperCase(),
-                style: Theme.of(context).textTheme.subtitle1)
-          ],
-        ),
-      );
+  // Resto del código...
 
-  // Widget para los elementos del dashboard con botones
   Widget itemDashboardWithButton(
-          String title, IconData iconData, Color background) =>
+      String title, IconData iconData, Color background) =>
       GestureDetector(
         onTap: () {
           if (title == 'Perfil') {
@@ -146,22 +118,24 @@ class _MyHomePageState extends State<MyHomePage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      perfil()), // Navega a la página de perfil
+                      perfil()), 
             );
           } else if (title == 'Lecciones') {
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      Lecciones()), // Navega a la página de lecciones
+                      Lecciones()), 
             );
           } else if (title == 'Logros') {
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      MyApp()), // Navega a la página de lecciones
+                      MyApp()), 
             );
+          } else if (title == 'Foro') {
+            // Aquí debes definir la navegación al Foro
           }
         },
         child: Container(
@@ -196,32 +170,34 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              perfil()), // Navega a la página de perfil
+                              perfil()), 
                     );
                   } else if (title == 'Lecciones') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Lecciones()), // Navega a la página de lecciones
+                              Lecciones()), 
                     );
                   } else if (title == 'Logros') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              MyApp()), // Navega a la página de lecciones
+                              MyApp()), 
                     );
+                  } else if (title == 'Foro') {
+                    // Aquí debes definir la navegación al Foro
                   }
                 },
                 child: Column(
                   children: [
                     Text(title == 'Perfil'
                         ? 'Ver perfil'
-                        : 'Ir a Logros'), // Modificación aquí
+                        : 'Ir a Logros'),
                     if (title == 'Lecciones')
                       Text(
-                          'Ir a Lecciones') // Agregar este texto condicionalmente
+                          'Ir a Lecciones')
                   ],
                 ),
               ),
