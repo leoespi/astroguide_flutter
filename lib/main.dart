@@ -2,6 +2,7 @@ import 'package:astroguide_flutter/pages/logros.dart';
 import 'package:astroguide_flutter/pages/menu.dart';
 import 'package:astroguide_flutter/pages/perfil.dart';
 import 'package:astroguide_flutter/pages/lecciones.dart';
+import 'package:astroguide_flutter/pages/post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

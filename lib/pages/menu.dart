@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/pages/lecciones.dart'; // Importa la página de lecciones
 import 'package:astroguide_flutter/pages/Perfil.dart'; // Importa la página de perfil
+import 'package:astroguide_flutter/pages/post.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -88,14 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 40,
                 mainAxisSpacing: 30,
                 children: [
+                  itemDashboardWithButton('Logros',
+                      CupertinoIcons.play_rectangle, Colors.deepOrange),
                   itemDashboardWithButton(
-                      'Logros',
-                      CupertinoIcons.play_rectangle,
-                      Colors.deepOrange),
-                  itemDashboardWithButton('Perfil',
-                      CupertinoIcons.profile_circled, Colors.green),
-                  itemDashboardWithButton('Lecciones',
-                      CupertinoIcons.person_2, Colors.purple),
+                      'Perfil', CupertinoIcons.profile_circled, Colors.green),
+                  itemDashboardWithButton(
+                      'Lecciones', CupertinoIcons.person_2, Colors.purple),
                   itemDashboardWithButton('Foro', Icons.forum, Colors.blue),
                 ],
               ),
@@ -110,31 +109,29 @@ class _MyHomePageState extends State<MyHomePage> {
   // Resto del código...
 
   Widget itemDashboardWithButton(
-      String title, IconData iconData, Color background) =>
+          String title, IconData iconData, Color background) =>
       GestureDetector(
         onTap: () {
           if (title == 'Perfil') {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      perfil()), 
+              MaterialPageRoute(builder: (context) => perfil()),
             );
           } else if (title == 'Lecciones') {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      Lecciones()), 
+              MaterialPageRoute(builder: (context) => Lecciones()),
             );
           } else if (title == 'Logros') {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      MyApp()), 
+              MaterialPageRoute(builder: (context) => logrospage()),
             );
           } else if (title == 'Foro') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => PostPage()),
+            );
             // Aquí debes definir la navegación al Foro
           }
         },
@@ -168,36 +165,29 @@ class _MyHomePageState extends State<MyHomePage> {
                   if (title == 'Perfil') {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              perfil()), 
+                      MaterialPageRoute(builder: (context) => perfil()),
                     );
                   } else if (title == 'Lecciones') {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Lecciones()), 
+                      MaterialPageRoute(builder: (context) => Lecciones()),
                     );
                   } else if (title == 'Logros') {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              MyApp()), 
+                      MaterialPageRoute(builder: (context) => logrospage()),
                     );
                   } else if (title == 'Foro') {
-                    // Aquí debes definir la navegación al Foro
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PostPage()),
+                    );// Aquí debes definir la navegación al Foro
                   }
                 },
                 child: Column(
                   children: [
-                    Text(title == 'Perfil'
-                        ? 'Ver perfil'
-                        : 'Ir a Logros'),
-                    if (title == 'Lecciones')
-                      Text(
-                          'Ir a Lecciones')
+                    Text(title == 'Perfil' ? 'Ver perfil' : 'Ir a Logros'),
+                    if (title == 'Lecciones') Text('Ir a Lecciones')
                   ],
                 ),
               ),
