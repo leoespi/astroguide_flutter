@@ -13,7 +13,7 @@ class QuizService {
         return json.decode(response.body);
       } else {
         // Si la solicitud falló, maneja el error
-        throw Exception('Error al obtener logros: ${response.statusCode}');
+        throw Exception('Error al obtener quizs: ${response.statusCode}');
       }
     } catch (e) {
       // Error de conexión u otro error
