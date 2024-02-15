@@ -113,6 +113,35 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
     ]..shuffle();
   }
 
+  void enviarRespuesta() {
+    if (selectedAnswer == widget.quiz['RespuestaCorrecta']) {
+      // La respuesta es correcta, navegar a una nueva página
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RespuestaCorrectaPage()),
+      );
+    } else {
+      // La respuesta es incorrecta, mostrar un diálogo de alerta
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Respuesta Incorrecta'),
+            content: Text('Por favor, intenta nuevamente.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,7 +177,30 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                   ),
               ],
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: enviarRespuesta,
+              child: Text('Enviar respuesta'),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class RespuestaCorrectaPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Respuesta Correcta'),
+      ),
+      body: Center(
+        child: Text(
+          '¡Felicidades! Has respondido correctamente.',
+          style: TextStyle(fontSize: 24),
+          textAlign: TextAlign.center,
         ),
       ),
     );
