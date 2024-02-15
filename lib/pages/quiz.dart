@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astroguide_flutter/services/quiz_service.dart';
 
+
 class QuizListPage extends StatefulWidget {
   @override
   _QuizListPageState createState() => _QuizListPageState();
@@ -114,7 +115,9 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
   }
 
   void enviarRespuesta() {
-    if (selectedAnswer == widget.quiz['RespuestaCorrecta']) {
+    if (selectedAnswer == widget.quiz['RespuestaCorrecta'] ||
+        selectedAnswer == widget.quiz['RespuestaCorrecta2'] ||
+        selectedAnswer == widget.quiz['RespuestaCorrecta3']) {
       // La respuesta es correcta, navegar a una nueva página
       Navigator.push(
         context,
@@ -148,26 +151,51 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
       appBar: AppBar(
         title: Text(widget.quiz['titulo'] ?? ''),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.quiz['Pregunta'] ?? '',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.quiz['Pregunta'] ?? '',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (var answer in shuffledAnswers)
+              SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (var answer in shuffledAnswers)
+                    RadioListTile<String>(
+                      title: Text(answer ?? ''),
+                      value: answer,
+                      groupValue: selectedAnswer,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedAnswer = value;
+                        });
+                      },
+                    ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                widget.quiz['Pregunta2'] ?? '',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   RadioListTile<String>(
-                    title: Text(answer ?? ''),
-                    value: answer,
+                    title: Text(widget.quiz['RespuestaCorrecta2'] ?? ''),
+                    value: widget.quiz['RespuestaCorrecta2'],
                     groupValue: selectedAnswer,
                     onChanged: (value) {
                       setState(() {
@@ -175,34 +203,103 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                       });
                     },
                   ),
-              ],
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: enviarRespuesta,
-              child: Text('Enviar respuesta'),
-            ),
-          ],
+                  RadioListTile<String>(
+                    title: Text(widget.quiz['Respuesta5'] ?? ''),
+                    value: widget.quiz['Respuesta5'],
+                    groupValue: selectedAnswer,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedAnswer = value;
+                      });
+                    },
+                  ),
+                  RadioListTile<String>(
+                    title: Text(widget.quiz['Respuesta6'] ?? ''),
+                    value: widget.quiz['Respuesta6'],
+                    groupValue: selectedAnswer,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedAnswer = value;
+                      });
+                    },
+                  ),
+                  RadioListTile<String>(
+                    title: Text(widget.quiz['Respuesta7'] ?? ''),
+                    value: widget.quiz['Respuesta7'],
+                    groupValue: selectedAnswer,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedAnswer = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                widget.quiz['Pregunta3'] ?? '',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RadioListTile<String>(
+                    title: Text(widget.quiz['RespuestaCorrecta3'] ?? ''),
+                    value: widget.quiz['RespuestaCorrecta3'],
+                    groupValue: selectedAnswer,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedAnswer = value;
+                      });
+                    },
+                  ),
+                  RadioListTile<String>(
+                    title: Text(widget.quiz['Respuesta8'] ?? ''),
+                    value: widget.quiz['Respuesta8'],
+                    groupValue: selectedAnswer,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedAnswer = value;
+                      });
+                    },
+                  ),
+                  RadioListTile<String>(
+                    title: Text(widget.quiz['Respuesta9'] ?? ''),
+                    value: widget.quiz['Respuesta9'],
+                    groupValue: selectedAnswer,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedAnswer = value;
+                      });
+                    },
+                  ),
+                  RadioListTile<String>(
+                    title: Text(widget.quiz['Respuesta10'] ?? ''),
+                    value: widget.quiz['Respuesta10'],
+                    groupValue: selectedAnswer,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedAnswer = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: enviarRespuesta,
+                child: Text('Enviar respuesta'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-}
-
-class RespuestaCorrectaPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Respuesta Correcta'),
-      ),
-      body: Center(
-        child: Text(
-          '¡Felicidades! Has respondido correctamente.',
-          style: TextStyle(fontSize: 24),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
+  
+   RespuestaCorrectaPage() {} // Si este es un widget, asegúrate de definirlo adecuadamente.
 }
