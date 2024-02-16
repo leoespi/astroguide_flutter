@@ -36,6 +36,7 @@ class _LeccionesListState extends State<LeccionesList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<dynamic>>(
+       
       future: LeccionesService.obtenerLecciones(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -46,6 +47,8 @@ class _LeccionesListState extends State<LeccionesList> {
           final List<dynamic> leccionesData = snapshot.data ?? [];
 
           return Scrollbar(
+     
+           
             controller: _scrollController,
             child: ListView.builder(
               controller: _scrollController,
@@ -79,7 +82,7 @@ class _LeccionesListState extends State<LeccionesList> {
                       ],
                     ),
                     child: Text(
-                      leccionesData[index]['nombre'] ?? '',
+                      leccionesData[index]['Nombre_de_la_leccion'] ?? '',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -119,7 +122,7 @@ class LeccionDetalle extends StatelessWidget {
               SizedBox(height: 10),
               Text('Tipo de lección: ${leccionData['Tipo_de_leccion'] ?? ''}'),
               SizedBox(height: 10),
-              Text('Contenido: ${leccionData['contenido'] ?? ''}'),
+              Text('Contenido: ${leccionData['Contenido'] ?? ''}'),
             ],
           ),
         ),
