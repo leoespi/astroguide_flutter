@@ -1,13 +1,13 @@
 import 'package:astroguide_flutter/main.dart';
 import 'package:astroguide_flutter/pages/logros.dart';
+import 'package:astroguide_flutter/pages/post.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/pages/lecciones.dart'; // Importa la página de lecciones
 import 'package:astroguide_flutter/pages/Perfil.dart'; // Importa la página de perfil
-import 'package:astroguide_flutter/pages/post.dart';
-import 'package:astroguide_flutter/pages/quiz.dart';
+import 'package:astroguide_flutter/pages/quiz.dart'; // Importa la página de quizzes
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -97,7 +97,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       'Perfil', CupertinoIcons.profile_circled, Colors.green),
                   itemDashboardWithButton(
                       'Lecciones', CupertinoIcons.person_2, Colors.purple),
-                  itemDashboardWithButton('Foro', Icons.forum, Colors.blue),
+                  itemDashboardWithButton('Quiz', Icons.quiz,
+                      Colors.blue), // Agregado el botón de Quiz
+                  itemDashboardWithButton('Foro', CupertinoIcons.play_rectangle,
+                      Color.fromARGB(255, 88, 3, 128)),
                 ],
               ),
             ),
@@ -127,27 +130,21 @@ class _MyHomePageState extends State<MyHomePage> {
           } else if (title == 'Logros') {
             Navigator.push(
               context,
-
               MaterialPageRoute(builder: (context) => logrospage()),
-
-              MaterialPageRoute(
-                  builder: (context) =>
-                      logrospage()), 
-
             );
           } else if (title == 'Foro') {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => PostPage()),
             );
+          } else if (title == 'Foro') {
             // Aquí debes definir la navegación al Foro
           } else if (title == 'Quiz') {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      QuizListPage()), 
-            );}
+              MaterialPageRoute(builder: (context) => QuizListPage()),
+            );
+          }
         },
         child: Container(
           decoration: BoxDecoration(
@@ -177,7 +174,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                 onPressed: () {
                   if (title == 'Perfil') {
-                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => perfil()),
@@ -191,45 +187,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   } else if (title == 'Logros') {
                     Navigator.push(
                       context,
-
                       MaterialPageRoute(builder: (context) => logrospage()),
                     );
                   } else if (title == 'Foro') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PostPage()),
-                    );// Aquí debes definir la navegación al Foro
+                    );
+                  } else if (title == 'Quiz') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => QuizListPage()),
+                    );
                   }
                 },
                 child: Column(
                   children: [
-                    Text(title == 'Perfil' ? 'Ver perfil' : 'Ir a Logros'),
-                    if (title == 'Lecciones') Text('Ir a Lecciones')
-
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              logrospage()), 
-                    );
-                  } else if (title == 'Foro') {
-                    // Aquí debes definir la navegación al Foro
-                  }else if (title == 'Quiz') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              QuizListPage()), 
-                    );
-                  } 
-                },
-                child: Column(
-                  children: [
-                  if(title == 'Perfil')
-                    Text('Ir a perfil'),
-                  if(title == 'Logros')
-                    Text('Ir a logros'),
-                 if (title == 'Lecciones')
-                    Text('Ir a Lecciones')
->>>>>>> bc358c1765d3cf994d78903843803ca0053c434f
+                    if (title == 'Perfil') Text('Ir a perfil'),
+                    if (title == 'Logros') Text('Ir a logros'),
+                    if (title == 'Lecciones') Text('Ir a Lecciones'),
                   ],
                 ),
               ),

@@ -19,9 +19,7 @@ class perfil extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        
-      ),
+      theme: ThemeData(),
       home: const ProfileScreen(),
     );
   }
@@ -32,7 +30,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Future<List<dynamic>> _userDataFuture = UserService.obtenerUsuarios(); // Corregir aquí
+    final Future<List<dynamic>> _userDataFuture =
+        UserService.obtenerUsuarios(); // Corregir aquí
 
     return Scaffold(
       appBar: AppBar(
@@ -48,22 +47,29 @@ class ProfileScreen extends StatelessWidget {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
-              final userData = snapshot.data![0]; // Suponiendo que la lista de usuarios solo contiene un usuario por ahora
+              final userData = snapshot.data![
+                  0]; // Suponiendo que la lista de usuarios solo contiene un usuario por ahora
 
               return Column(
                 children: [
                   const SizedBox(height: 40),
                   const SizedBox(height: 20),
                   if (userData != null) ...[
-                    itemProfile('Name', userData['name'] ?? '', CupertinoIcons.person), // Usa los datos del usuario aquí
+                    itemProfile(
+                        'Name',
+                        userData['name'] ?? '',
+                        CupertinoIcons
+                            .person), // Usa los datos del usuario aquí
                     const SizedBox(height: 10),
-                    itemProfile('Correo', userData['email'] ?? '', CupertinoIcons.mail), // Usa los datos del usuario aquí
+                    itemProfile('Correo', userData['email'] ?? '',
+                        CupertinoIcons.mail), // Usa los datos del usuario aquí
                   ],
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context); // Navega de regreso a la primera página
+                        Navigator.pop(
+                            context); // Navega de regreso a la primera página
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(15),
@@ -90,10 +96,8 @@ class ProfileScreen extends StatelessWidget {
                 offset: const Offset(0, 5),
                 color: Color.fromARGB(255, 104, 51, 155).withOpacity(.2),
                 spreadRadius: 2,
-                blurRadius: 10
-            )
-          ]
-      ),
+                blurRadius: 10)
+          ]),
       child: ListTile(
         title: Text(title),
         subtitle: Text(subtitle),

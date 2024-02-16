@@ -36,7 +36,7 @@ class _PostPageState extends State<PostPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PostFIeld(
-                  hintText: '¿Qué quieres preguntar?',
+                  hintText: '¿Que estas pensando?',
                   controller: _textController,
                 ),
                 // const SizedBox(
