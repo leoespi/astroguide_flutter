@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:astroguide_flutter/services/quiz_service.dart';
+import 'package:http/http.dart' as http;
+
 
 
 class QuizListPage extends StatefulWidget {
@@ -105,7 +108,6 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
   @override
   void initState() {
     super.initState();
-    // Obtener respuestas y reorganizarlas aleatoriamente
     shuffledAnswers = [
       widget.quiz['RespuestaCorrecta'],
       widget.quiz['Respuesta2'],
@@ -114,23 +116,64 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
     ]..shuffle();
   }
 
-  void enviarRespuesta() {
-    if (selectedAnswer == widget.quiz['RespuestaCorrecta'] ||
-        selectedAnswer == widget.quiz['RespuestaCorrecta2'] ||
-        selectedAnswer == widget.quiz['RespuestaCorrecta3']) {
-      // La respuesta es correcta, navegar a una nueva página
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => RespuestaCorrectaPage()),
-      );
+  Future<void> enviarRespuesta() async {
+    var body = jsonEncode({
+      'quiz_id': widget.quiz['id'],
+      'respuestas_cliente': [selectedAnswer],
+    });
+
+    var url = Uri.parse('https://10.0.2.2:8000/api/quizs/validar-terminacion');
+    var response = await http.post(url, body: body, headers: {
+      'Content-Type': 'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      bool quizCompletado = data['quiz_terminado_correctamente'];
+      if (quizCompletado) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Quiz Completado'),
+              content: Text('¡Felicidades! Has completado el quiz correctamente.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Quiz Incompleto'),
+              content: Text('Lo siento, parece que el quiz no fue completado correctamente. Por favor, inténtalo nuevamente.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     } else {
-      // La respuesta es incorrecta, mostrar un diálogo de alerta
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Respuesta Incorrecta'),
-            content: Text('Por favor, intenta nuevamente.'),
+            title: Text('Error'),
+            content: Text('Hubo un error al intentar enviar la respuesta. Por favor, inténtalo nuevamente.'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
