@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:astroguide_flutter/controllers/authentication.dart';
-import 'package:astroguide_flutter/pages/register_page.dart';
+import 'package:astroguide_flutter/pages/login_page.dart';
+import 'package:get/get.dart';
 import './widgets/input_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:get/get.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
+class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final AuthenticationController _authenticationController =
       Get.put(AuthenticationController());
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size.width;
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Login',
+                'Register',
                 style: GoogleFonts.poppins(
                   fontSize: size * 0.080,
                 ),
@@ -40,9 +41,25 @@ class _LoginPageState extends State<LoginPage> {
                 height: 30,
               ),
               InputWidget(
+                hintText: 'Name',
+                obscureText: false,
+                controller: _nameController,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              InputWidget(
                 hintText: 'Username',
                 obscureText: false,
                 controller: _usernameController,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              InputWidget(
+                hintText: 'Email',
+                obscureText: false,
+                controller: _emailController,
               ),
               const SizedBox(
                 height: 20,
@@ -65,18 +82,22 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 onPressed: () async {
-                  await _authenticationController.login(
+                  await _authenticationController.register(
+                    name: _nameController.text.trim(),
                     username: _usernameController.text.trim(),
+                    email: _emailController.text.trim(),
                     password: _passwordController.text.trim(),
                   );
                 },
                 child: Obx(() {
                   return _authenticationController.isLoading.value
-                      ? const CircularProgressIndicator(
-                          color: Colors.white,
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
                         )
                       : Text(
-                          'Login',
+                          'Register',
                           style: GoogleFonts.poppins(
                             fontSize: size * 0.040,
                           ),
@@ -88,10 +109,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(() => const RegisterPage());
+                  Get.to(() => const LoginPage());
                 },
                 child: Text(
-                  'Register',
+                  'Login',
                   style: GoogleFonts.poppins(
                     fontSize: size * 0.040,
                     color: Colors.black,

@@ -36,6 +36,7 @@ class _LeccionesListState extends State<LeccionesList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<dynamic>>(
+       
       future: LeccionesService.obtenerLecciones(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -46,6 +47,8 @@ class _LeccionesListState extends State<LeccionesList> {
           final List<dynamic> leccionesData = snapshot.data ?? [];
 
           return Scrollbar(
+     
+           
             controller: _scrollController,
             child: ListView.builder(
               controller: _scrollController,
@@ -71,14 +74,15 @@ class _LeccionesListState extends State<LeccionesList> {
                       boxShadow: [
                         BoxShadow(
                           offset: const Offset(0, 5),
-                          color: Color.fromARGB(255, 104, 51, 155).withOpacity(.2),
+                          color:
+                              Color.fromARGB(255, 104, 51, 155).withOpacity(.2),
                           spreadRadius: 2,
                           blurRadius: 10,
                         )
                       ],
                     ),
                     child: Text(
-                      leccionesData[index]['nombre'] ?? '',
+                      leccionesData[index]['Nombre_de_la_leccion'] ?? '',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -113,11 +117,12 @@ class LeccionDetalle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              Text('Nombre de la lección: ${leccionData['Nombre_de_la_leccion'] ?? ''}'),
+              Text(
+                  'Nombre de la lección: ${leccionData['Nombre_de_la_leccion'] ?? ''}'),
               SizedBox(height: 10),
               Text('Tipo de lección: ${leccionData['Tipo_de_leccion'] ?? ''}'),
               SizedBox(height: 10),
-              Text('Contenido: ${leccionData['contenido'] ?? ''}'),
+              Text('Contenido: ${leccionData['Contenido'] ?? ''}'),
             ],
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/services/logros_service.dart';
 import 'package:astroguide_flutter/main.dart';
+import 'menu.dart';
 
 
 class logrospage extends StatelessWidget {
@@ -36,7 +37,6 @@ class logrospage extends StatelessWidget {
                   return itemProfile(
                     logro['Nombre_del_Logro'] ?? 'Sin nombre',
                     logro['Rareza'] ?? 'Sin rareza',
-
                     CupertinoIcons.person,
                   );
                 },
@@ -60,7 +60,7 @@ class logrospage extends StatelessWidget {
             spreadRadius: 2,
             blurRadius: 10,
           ),
-        ],  
+        ],
       ),
       child: ListTile(
         title: Text(title),
