@@ -56,20 +56,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 50),
                 ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                  title: Text('Hello!',
+                  title: Text('Hola!',
                       style: Theme.of(context)
                           .textTheme
                           .headline6
                           ?.copyWith(color: Colors.white)),
-                  subtitle: Text('Good Morning',
+                  subtitle: Text('Bienvenido',
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
                           ?.copyWith(color: Colors.white54)),
-                  trailing: const CircleAvatar(
-                    radius: 30,
-                    backgroundImage: AssetImage('images/shrek.jpg'),
-                  ),
+                  
                 ),
                 const SizedBox(height: 30)
               ],
@@ -90,15 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 40,
                 mainAxisSpacing: 30,
                 children: [
-                  itemDashboardWithButton(
-                      'Logros',
-                      CupertinoIcons.play_rectangle,
-                      Colors.deepOrange),
+                  itemDashboardWithButton('Logros Obtenidos',
+                      CupertinoIcons.star, Colors.deepOrange),
                   itemDashboardWithButton('Perfil',
                       CupertinoIcons.profile_circled, Colors.green),
                   itemDashboardWithButton('Lecciones',
-                      CupertinoIcons.person_2, Colors.purple),
-                  itemDashboardWithButton('Quiz', Icons.quiz, Colors.blue), // Agregado el botón de Quiz
+                      CupertinoIcons.book, Colors.purple),
+                  itemDashboardWithButton('Quiz',
+                     Icons.quiz, Colors.blue), // Agregado el botón de Quiz
                 ],
               ),
             ),
@@ -129,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (context) =>
                       Lecciones()), 
             );
-          } else if (title == 'Logros') {
+          } else if (title == 'Logros Obtenidos') {
             Navigator.push(
               context,
               MaterialPageRoute(
