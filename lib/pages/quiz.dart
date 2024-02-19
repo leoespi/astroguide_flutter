@@ -165,8 +165,9 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                     widget.quiz['RespuestaCorrecta'],
                     widget.quiz['Respuesta2'],
                     widget.quiz['Respuesta3'],
-                    widget.quiz['Respuesta4'],
-                  ])
+                    widget.quiz['Respuesta4'], 
+                  ]..shuffle()
+                  )
                     RadioListTile<String>(
                       title: Text(answer ?? ''),
                       value: answer,
@@ -196,7 +197,8 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                     widget.quiz['Respuesta5'],
                     widget.quiz['Respuesta6'],
                     widget.quiz['Respuesta7'],
-                  ])
+                  ]..shuffle()
+                  )
                     RadioListTile<String>(
                       title: Text(answer ?? ''),
                       value: answer,
@@ -226,7 +228,9 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
                     widget.quiz['Respuesta8'],
                     widget.quiz['Respuesta9'],
                     widget.quiz['Respuesta10'],
-                  ])
+                  ]..shuffle()
+                  
+                  )
                     RadioListTile<String>(
                       title: Text(answer ?? ''),
                       value: answer,
