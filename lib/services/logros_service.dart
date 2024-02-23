@@ -1,12 +1,18 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '';
 
 class LogrosService {
-  static Future<List<dynamic>> getLogros() async {
-    final url = 'http://10.0.2.2:8000/api/logro'; // URL del endpoint del backend
+  static Future<List<dynamic>> getLogros(String token) async {
+    final url = 'http://10.0.2.2:8000/api/logroUser';
+    var headers = {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer $token'
+    };
+    // URL del endpoint del backend
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url), headers:headers);
         
       if (response.statusCode == 200) {
         // Si la solicitud fue exitosa, devuelve los datos decodificados
