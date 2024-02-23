@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/services/logros_service.dart';
 import 'package:astroguide_flutter/main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'menu.dart';
 
 
@@ -11,7 +12,9 @@ class logrospage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Future<List<dynamic>> _logrosDataFuture = LogrosService.getLogros();
+    var storage = GetStorage();
+    var token = storage.read('token');
+    final Future<List<dynamic>> _logrosDataFuture = LogrosService.getLogros(token);
 
     return Scaffold(
       appBar: AppBar(

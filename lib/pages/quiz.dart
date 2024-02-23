@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astroguide_flutter/services/quiz_service.dart';
+import 'package:get_storage/get_storage.dart';
+
 
 class QuizListPage extends StatefulWidget {
   @override
@@ -12,12 +14,14 @@ class _QuizListPageState extends State<QuizListPage> {
   @override
   void initState() {
     super.initState();
-    obtenerQuizzes();
+     var storage = GetStorage();
+    var token = storage.read('token');
+    obtenerQuizzes(token);
   }
 
-  Future<void> obtenerQuizzes() async {
+  Future<void> obtenerQuizzes(String token) async {
     try {
-      final List<dynamic> listaQuizzes = await QuizService.getQuiz();
+      final List<dynamic> listaQuizzes = await QuizService.getQuiz(token);
       setState(() {
         quizzes = listaQuizzes;
       });
@@ -28,7 +32,9 @@ class _QuizListPageState extends State<QuizListPage> {
   }
 
   @override
+  
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Quizzes'),

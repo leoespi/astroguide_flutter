@@ -2,11 +2,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class QuizService {
-  static Future<List<dynamic>> getQuiz() async {
-    final url = 'http://10.0.2.2:8000/api/quiz'; // URL del endpoint del backend
+  static Future<List<dynamic>> getQuiz(String token) async {
+    final url = 'http://10.0.2.2:8000/api/quiz'; 
+    var headers = {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer $token'
+    };// URL del endpoint del backend
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url), headers:headers);
         
       if (response.statusCode == 200) {
         // Si la solicitud fue exitosa, devuelve los datos decodificados
