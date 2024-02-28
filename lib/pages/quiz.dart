@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astroguide_flutter/services/quiz_service.dart';
+import 'package:get_storage/get_storage.dart';
+
 
 class QuizListPage extends StatefulWidget {
   @override
@@ -12,12 +14,14 @@ class _QuizListPageState extends State<QuizListPage> {
   @override
   void initState() {
     super.initState();
-    obtenerQuizzes();
+     var storage = GetStorage();
+    var token = storage.read('token');
+    obtenerQuizzes(token);
   }
 
-  Future<void> obtenerQuizzes() async {
+  Future<void> obtenerQuizzes(String token) async {
     try {
-      final List<dynamic> listaQuizzes = await QuizService.getQuiz();
+      final List<dynamic> listaQuizzes = await QuizService.getQuiz(token);
       setState(() {
         quizzes = listaQuizzes;
       });
@@ -28,7 +32,9 @@ class _QuizListPageState extends State<QuizListPage> {
   }
 
   @override
+  
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Quizzes'),
@@ -98,19 +104,44 @@ class QuizDetailPage extends StatefulWidget {
 }
 
 class _QuizDetailPageState extends State<QuizDetailPage> {
-  List<String> shuffledAnswers = [];
-  String? selectedAnswer;
+  String? selectedAnswer1;
+  String? selectedAnswer2;
+  String? selectedAnswer3;
+  int correctAnswersCount = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    // Obtener respuestas y reorganizarlas aleatoriamente
-    shuffledAnswers = [
-      widget.quiz['RespuestaCorrecta'],
-      widget.quiz['Respuesta2'],
-      widget.quiz['Respuesta3'],
-      widget.quiz['Respuesta4'],
-    ]..shuffle();
+  void enviarRespuesta() {
+    // Verificar si todas las preguntas han sido respondidas
+    if (selectedAnswer1 != null && selectedAnswer2 != null && selectedAnswer3 != null) {
+      // Verificar si todas las respuestas son correctas
+      if (selectedAnswer1 == widget.quiz['RespuestaCorrecta'] &&
+          selectedAnswer2 == widget.quiz['RespuestaCorrecta2'] &&
+          selectedAnswer3 == widget.quiz['RespuestaCorrecta3']) {
+        // Navegar a la página de aprobación
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => QuizPassedPage()),
+        );
+      } else {
+        // Mostrar un diálogo de respuesta incorrecta
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Respuestas Incorrectas'),
+              content: Text('Por favor, intenta nuevamente.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
   }
 
   @override
@@ -119,34 +150,142 @@ class _QuizDetailPageState extends State<QuizDetailPage> {
       appBar: AppBar(
         title: Text(widget.quiz['titulo'] ?? ''),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.quiz['Pregunta'] ?? '',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.quiz['Pregunta'] ?? '',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (var answer in [
+                    widget.quiz['RespuestaCorrecta'],
+                    widget.quiz['Respuesta2'],
+                    widget.quiz['Respuesta3'],
+                    widget.quiz['Respuesta4'], 
+                  ]..shuffle()
+                  )
+                    RadioListTile<String>(
+                      title: Text(answer ?? ''),
+                      value: answer,
+                      groupValue: selectedAnswer1,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedAnswer1 = value;
+                        });
+                      },
+                    ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                widget.quiz['Pregunta2'] ?? '',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (var answer in [
+                    widget.quiz['RespuestaCorrecta2'],
+                    widget.quiz['Respuesta5'],
+                    widget.quiz['Respuesta6'],
+                    widget.quiz['Respuesta7'],
+                  ]..shuffle()
+                  )
+                    RadioListTile<String>(
+                      title: Text(answer ?? ''),
+                      value: answer,
+                      groupValue: selectedAnswer2,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedAnswer2 = value;
+                        });
+                      },
+                    ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                widget.quiz['Pregunta3'] ?? '',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (var answer in [
+                    widget.quiz['RespuestaCorrecta3'],
+                    widget.quiz['Respuesta8'],
+                    widget.quiz['Respuesta9'],
+                    widget.quiz['Respuesta10'],
+                  ]..shuffle()
+                  
+                  )
+                    RadioListTile<String>(
+                      title: Text(answer ?? ''),
+                      value: answer,
+                      groupValue: selectedAnswer3,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedAnswer3 = value;
+                        });
+                      },
+                    ),
+                ],
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: enviarRespuesta,
+                child: Text('Enviar respuestas'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class QuizPassedPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('¡Felicidades!'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 100,
             ),
             SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (var answer in shuffledAnswers)
-                  RadioListTile<String>(
-                    title: Text(answer ?? ''),
-                    value: answer,
-                    groupValue: selectedAnswer,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedAnswer = value;
-                      });
-                    },
-                  ),
-              ],
+            Text(
+              '¡Has pasado el quiz!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
