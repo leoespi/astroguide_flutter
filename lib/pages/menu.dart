@@ -6,10 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/pages/lecciones.dart'; // Importa la página de lecciones
-import 'package:astroguide_flutter/pages/Perfil.dart'; // Importa la página de perfil
 import 'package:astroguide_flutter/pages/quiz.dart'; // Importa la página de quizzes
-import 'package:astroguide_flutter/pages/perfil/profile_screen.dart';
-
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -120,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      ProfileScreen()), 
+                      Lecciones()), 
             );
           } else if (title == 'Lecciones') {
             Navigator.push(
