@@ -1,20 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/services/user_service.dart';
-import 'menu.dart'; // Importa la primera página para la navegación
+import 'package:get_storage/get_storage.dart';
 
-void main() {
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark));
-  runApp(const perfil());
+class UserData {
+  final String name;
+  final String username;
+  final String email;
+
+  UserData({
+    required this.name,
+    required this.username,
+    required this.email,
+  });
 }
 
-class perfil extends StatelessWidget {
-  const perfil({Key? key});
+class ProfileScreen extends StatefulWidget {
+  final String userId;
+
+  ProfileScreen({required this.userId});
 
   @override
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -23,20 +29,34 @@ class perfil extends StatelessWidget {
       home: const ProfileScreen(),
     );
   }
+
+  State<ProfileScreen> createState() => _ProfileScreenState();
+
 }
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+
   Widget build(BuildContext context) {
+
     final Future<List<dynamic>> _userDataFuture =
         UserService.obtenerUsuarios(); // Corregir aquí
+
+    var storage = GetStorage();
+    var token = storage.read('token');
+    final Future<UserData> userData = UserService.obtenerUsuarios(token);
+
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Perfil'),
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: FutureBuilder<List<dynamic>>(
@@ -104,6 +124,40 @@ class ProfileScreen extends StatelessWidget {
         leading: Icon(iconData),
         trailing: Icon(Icons.arrow_forward, color: Colors.grey.shade400),
         tileColor: Colors.white,
+
+      body: FutureBuilder<UserData>(
+        future: userData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            final usuario = snapshot.data;
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Nombre: ${usuario!.name}',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    'Nombre de usuario: ${usuario.username}',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    'Correo electrónico: ${usuario.email}',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                ],
+              ),
+            );
+          }
+        },
+
       ),
     );
   }
