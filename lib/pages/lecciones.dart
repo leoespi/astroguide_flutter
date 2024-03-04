@@ -32,11 +32,10 @@ class LeccionesList extends StatefulWidget {
 
 class _LeccionesListState extends State<LeccionesList> {
   final ScrollController _scrollController = ScrollController();
-
+  
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<dynamic>>(
-       
       future: LeccionesService.obtenerLecciones(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -47,8 +46,6 @@ class _LeccionesListState extends State<LeccionesList> {
           final List<dynamic> leccionesData = snapshot.data ?? [];
 
           return Scrollbar(
-     
-           
             controller: _scrollController,
             child: ListView.builder(
               controller: _scrollController,

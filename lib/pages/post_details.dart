@@ -4,6 +4,7 @@ import 'package:astroguide_flutter/pages/widgets/input_widget.dart';
 import 'package:get/get.dart';
 import 'widgets/post_data.dart';
 import 'package:astroguide_flutter/controllers/post_controller.dart';
+import 'package:astroguide_flutter/pages/post.dart';
 
 class PostDetails extends StatefulWidget {
   const PostDetails({super.key, required this.post});

@@ -1,3 +1,4 @@
+import 'package:astroguide_flutter/pages/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:astroguide_flutter/services/quiz_service.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,13 +9,14 @@ class QuizListPage extends StatefulWidget {
   _QuizListPageState createState() => _QuizListPageState();
 }
 
+
 class _QuizListPageState extends State<QuizListPage> {
   List<dynamic> quizzes = [];
 
   @override
   void initState() {
     super.initState();
-     var storage = GetStorage();
+    var storage = GetStorage();
     var token = storage.read('token');
     obtenerQuizzes(token);
   }
@@ -32,9 +34,7 @@ class _QuizListPageState extends State<QuizListPage> {
   }
 
   @override
-  
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Quizzes'),
@@ -90,59 +90,79 @@ class _QuizListPageState extends State<QuizListPage> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+           Navigator.push(context, MaterialPageRoute(builder: (context) => menu()));
+        },
+        child: Icon(Icons.arrow_back),
+      ),
     );
   }
 }
+  class QuizDetailPage extends StatefulWidget {
+    final dynamic quiz;
 
-class QuizDetailPage extends StatefulWidget {
-  final dynamic quiz;
+    const QuizDetailPage({Key? key, required this.quiz}) : super(key: key);
 
-  const QuizDetailPage({Key? key, required this.quiz}) : super(key: key);
+    @override
+    _QuizDetailPageState createState() => _QuizDetailPageState();
+  }
 
-  @override
-  _QuizDetailPageState createState() => _QuizDetailPageState();
-}
+  class _QuizDetailPageState extends State<QuizDetailPage> {
+    String? selectedAnswer1;
+    String? selectedAnswer2;
+    String? selectedAnswer3;
+    int correctAnswersCount = 0;
 
-class _QuizDetailPageState extends State<QuizDetailPage> {
-  String? selectedAnswer1;
-  String? selectedAnswer2;
-  String? selectedAnswer3;
-  int correctAnswersCount = 0;
 
-  void enviarRespuesta() {
-    // Verificar si todas las preguntas han sido respondidas
-    if (selectedAnswer1 != null && selectedAnswer2 != null && selectedAnswer3 != null) {
-      // Verificar si todas las respuestas son correctas
-      if (selectedAnswer1 == widget.quiz['RespuestaCorrecta'] &&
-          selectedAnswer2 == widget.quiz['RespuestaCorrecta2'] &&
-          selectedAnswer3 == widget.quiz['RespuestaCorrecta3']) {
-        // Navegar a la página de aprobación
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => QuizPassedPage()),
-        );
-      } else {
-        // Mostrar un diálogo de respuesta incorrecta
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Respuestas Incorrectas'),
-              content: Text('Por favor, intenta nuevamente.'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
+
+    void enviarRespuesta() async {
+      // Verificar si todas las preguntas han sido respondidas
+      print("object");
+      if (selectedAnswer1 != null && selectedAnswer2 != null && selectedAnswer3 != null) {
+        GetStorage storage = GetStorage();
+        final token = storage.read("token");
+        Map<String, dynamic> data = {
+          "quiz_id" : widget.quiz["id"],
+          "respuestas_clientes" : [
+            selectedAnswer1,
+            selectedAnswer2,
+            selectedAnswer3
+          ] 
+        };
+        final resposnse = await QuizService.saveQuiz(token, data);
+        // Verificar si todas las respuestas son correctas
+        if (resposnse) {
+        /*if (selectedAnswer1 == widget.quiz['RespuestaCorrecta'] &&
+            selectedAnswer2 == widget.quiz['RespuestaCorrecta2'] &&
+            selectedAnswer3 == widget.quiz['RespuestaCorrecta3']) {*/
+          // Navegar a la página de aprobación
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => QuizPassedPage()),
+          );
+        } else {
+          // Mostrar un diálogo de respuesta incorrecta
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Respuestas Incorrectas'),
+                content: Text('Por favor, intenta nuevamente.'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
+        }
       }
     }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -286,6 +306,13 @@ class QuizPassedPage extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => QuizListPage()));
+              },
+              child: Text('Volver'),
             ),
           ],
         ),
