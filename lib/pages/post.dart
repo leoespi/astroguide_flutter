@@ -4,6 +4,8 @@ import 'widgets/post_field.dart';
 import 'widgets/post_data.dart';
 import 'package:astroguide_flutter/controllers/post_controller.dart';
 import 'package:astroguide_flutter/pages/menu.dart';
+import 'package:astroguide_flutter/controllers/authentication.dart';
+
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
