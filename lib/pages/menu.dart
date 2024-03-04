@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astroguide_flutter/pages/lecciones.dart'; // Importa la página de lecciones
 import 'package:astroguide_flutter/pages/quiz.dart'; // Importa la página de quizzes
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -37,25 +38,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+   final AuthenticationController _authController = AuthenticationController();
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(50),
-              ),
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: const BorderRadius.only(
+              bottomRight: Radius.circular(50),
             ),
-            child: Column(
-              children: [
-                const SizedBox(height: 50),
-                ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                  title: Text('Hola!',
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 30),
+                title: Row(
+                  children: [
+                    Text(
+                      'Hola!',
                       style: Theme.of(context)
                           .textTheme
                           .headline6
@@ -94,8 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       CupertinoIcons.book, Colors.purple),
                   itemDashboardWithButton('Quiz',
                      Icons.quiz, Colors.blue), // Agregado el botón de Quiz
-                  itemDashboardWithButton('Foro',
-                      CupertinoIcons.star, Color.fromARGB(255, 5, 96, 201)),
                 ],
               ),
             ),
