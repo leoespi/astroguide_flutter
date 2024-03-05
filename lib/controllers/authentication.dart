@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:astroguide_flutter/pages/login_page.dart
+import 'package:astroguide_flutter/pages/login_page.dart';
 import 'package:astroguide_flutter/pages/post.dart';
 
 class AuthenticationController extends GetxController {
@@ -16,21 +16,6 @@ class AuthenticationController extends GetxController {
     box.remove('token'); 
     Get.offAll(() => WelcomeScreen());
   }
-
-
-
-
-class AuthenticationController extends GetxController {
-
-  Future<void> logout() async {
-    box.remove('token'); 
-    Get.offAll(() => LoginPage()); // Navegar a la pantalla de inicio de sesión
-  }
-
-
-    
-
-  
 
 
   final isLoading = false.obs;
@@ -126,3 +111,7 @@ class AuthenticationController extends GetxController {
     }
   }
 }
+
+  login({required String username, required String password}) {}
+
+  register({required String name, required String username, required String email, required String password}) {}
