@@ -147,26 +147,18 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 25.0,
-                      ),
-                      ElevatedButton(
-  onPressed: () async {
+                       SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () async {
     await _authenticationController.login(
       username: _usernameController.text.trim(),
       password: _passwordController.text.trim(),
     );
   },
-  child: Obx(() {
-    return _authenticationController.isLoading.value
-        ? const CircularProgressIndicator(color: Colors.white)
-        : const Text('Ingresar');
-  }),
-),
-const SizedBox(
-  height: 25.0,
-),
-
+                          child: const Text('Iniciar Sesion'),
+                        ),
+                      ),
                       const SizedBox(
                         height: 25.0,
                       ),
