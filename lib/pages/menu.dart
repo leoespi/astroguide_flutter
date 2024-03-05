@@ -1,6 +1,7 @@
 import 'package:astroguide_flutter/main.dart';
 import 'package:astroguide_flutter/pages/logros.dart';
 import 'package:astroguide_flutter/pages/post.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +9,6 @@ import 'package:astroguide_flutter/pages/lecciones.dart'; // Importa la página 
 import "package:astroguide_flutter/pages/perfil.dart"; // Importa la página de perfil
 import 'package:astroguide_flutter/pages/quiz.dart'; // Importa la página de quizzes
 import 'package:astroguide_flutter/controllers/authentication.dart';
-
-
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -41,25 +40,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final AuthenticationController _authController = AuthenticationController();
 
-   final AuthenticationController _authController = AuthenticationController();
-
-
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(50),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(50),
+              ),
             ),
-
             child: Column(
               children: [
                 const SizedBox(height: 50),
@@ -113,82 +108,21 @@ Widget build(BuildContext context) {
                   itemDashboardWithButton(
                       'Perfil',
                       CupertinoIcons.profile_circled,
-                      Color.fromARGB(255, 14, 165, 140)),
+                      Color.fromARGB(255, 18, 140, 156)),
                   itemDashboardWithButton(
                       'Lecciones', CupertinoIcons.book, Colors.purple),
-                  itemDashboardWithButton('Foro', CupertinoIcons.book,
-                      Color.fromARGB(255, 0, 184, 216)),
-                  itemDashboardWithButton('Quiz', Icons.quiz,
-                      Colors.blue), // Agregado el botón de Quiz
+                  itemDashboardWithButton('Quiz', Icons.quiz, Colors.blue),
+                  itemDashboardWithButton('Foro',
+                      CupertinoIcons.star, Color.fromARGB(255, 243, 239, 9)),
                 ],
-
-          ),
-          child: Column(
-            children: [
-              const SizedBox(height: 50),
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                title: Row(
-                  children: [
-                    Text(
-                      'Hola!',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          ?.copyWith(color: Colors.white),
-                    ),
-                    Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.exit_to_app),
-                      onPressed: () {
-                        _authController.logout();
-                      },
-                    ),
-                  ],
-                ),
-                subtitle: Text('Bienvenido',
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        ?.copyWith(color: Colors.white54)),
-
               ),
-              const SizedBox(height: 30)
-            ],
-          ),
-        ),
-        Container(
-          color: Theme.of(context).primaryColor,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius:
-                    BorderRadius.only(topLeft: Radius.circular(200))),
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 40,
-              mainAxisSpacing: 30,
-              children: [
-                itemDashboardWithButton('Logros Obtenidos',
-                    CupertinoIcons.star, Colors.deepOrange),
-                itemDashboardWithButton('Perfil',
-                    CupertinoIcons.profile_circled, Colors.green),
-                itemDashboardWithButton('Lecciones',
-                    CupertinoIcons.book, Colors.purple),
-                itemDashboardWithButton('Quiz',
-                   Icons.quiz, Colors.blue), // Agregado el botón de Quiz
-              ],
             ),
           ),
-        ),
-        const SizedBox(height: 20)
-      ],
-    ),
-  );
-}
+          const SizedBox(height: 20)
+        ],
+      ),
+    );
+  }
 
   // Resto del código...
 
@@ -199,13 +133,10 @@ Widget build(BuildContext context) {
           if (title == 'Perfil') {
             Navigator.push(
               context,
-
-              MaterialPageRoute(builder: (context) => perfil()),
-
               MaterialPageRoute(
-                  builder: (context) =>
-                      ProfileScreen(userId: '',)), 
-
+                  builder: (context) => ProfileScreen(
+                        userId: '',
+                      )),
             );
           } else if (title == 'Lecciones') {
             Navigator.push(
