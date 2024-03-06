@@ -9,7 +9,6 @@ class QuizService {
       'authorization': 'Bearer $token'
     };// URL del endpoint del backend
 
-
     try {
       final response = await http.get(Uri.parse(url), headers:headers);
         
@@ -24,7 +23,6 @@ class QuizService {
       // Error de conexión u otro error
       throw Exception('Error: $e');
     }
-
   }
   static Future<bool> saveQuiz(String token, Map<String, dynamic> data) async {
     final url = 'http://10.0.2.2:8000/api/quiz/validarTerminacion'; 
@@ -49,3 +47,4 @@ class QuizService {
     }
   }
 }
+

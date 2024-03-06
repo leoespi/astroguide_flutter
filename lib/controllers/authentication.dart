@@ -6,18 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:astroguide_flutter/pages/login_page.dart
-import 'package:astroguide_flutter/pages/post.dart';
-
-class AuthenticationController extends GetxController {
-
-    Future<void> logout() async {
-    box.remove('token'); 
-    Get.offAll(() => LoginPage());
-  }
-
-
-
+import 'package:astroguide_flutter/pages/login_page.dart';
 
 class AuthenticationController extends GetxController {
 
@@ -30,7 +19,6 @@ class AuthenticationController extends GetxController {
     
 
   
-
 
   final isLoading = false.obs;
   final token = ''.obs;
