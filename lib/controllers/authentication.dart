@@ -111,7 +111,3 @@ class AuthenticationController extends GetxController {
     }
   }
 }
-
-  login({required String username, required String password}) {}
-
-  register({required String name, required String username, required String email, required String password}) {}
