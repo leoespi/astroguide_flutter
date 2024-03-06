@@ -25,6 +25,6 @@ class MyApp extends StatelessWidget {
       title: 'AstroGuide',
       theme: lightMode,
       home: token == null ? const WelcomeScreen() : const menu(),
-    );
+    ); 
   }
 }

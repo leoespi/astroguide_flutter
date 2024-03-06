@@ -6,7 +6,6 @@ import 'package:astroguide_flutter/controllers/post_controller.dart';
 import 'package:astroguide_flutter/pages/menu.dart';
 import 'package:astroguide_flutter/controllers/authentication.dart';
 
-
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
 
@@ -74,6 +73,7 @@ class _PostPageState extends State<PostPage> {
                   height: 20,
                 ),
                 Obx(() {
+                  print(_postController.posts);
                   return _postController.isLoading.value
                       ? const Center(
                           child: CircularProgressIndicator(),

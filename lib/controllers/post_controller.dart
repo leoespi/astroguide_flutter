@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-
 class PostController extends GetxController {
   Rx<List<PostModel>> posts = Rx<List<PostModel>>([]);
   Rx<List<CommentModel>> comments = Rx<List<CommentModel>>([]);
@@ -30,6 +29,7 @@ class PostController extends GetxController {
         'Authorization': 'Bearer ${box.read('token')}',
       });
       if (response.statusCode == 200) {
+        print(response.body);
         isLoading.value = false;
         final content = json.decode(response.body)['feeds'];
         for (var item in content) {
